@@ -1,0 +1,134 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+<div>
+    <div class="row">
+        <div class="col">
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="col mb-3 w-50">
+                    <label for="id_empresa">Empresa</label>
+
+                    <select class="form-select d-block w-100" id="id_empresa" name="empresa">
+                        <option value=''>Seleccione una empresa por la que filtrar.</option>
+                        {% for empresa in empresas %}
+                        <option value="{{ empresa.id }}">{{ empresa.descripcion }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button class="w-25 btn btn-primary btn-sm" type="submit">Filtrar</button>
+            </form>
+        </div>
+
+        <div class="col">
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="col mb-3 w-50">
+                    <label for="id_responsable">Errores por reponsable</label>
+
+                    <select class="form-select d-block w-100" id="id_responsable" name="responsable">
+                        <option value="">Seleccione un responsable por el que filtrar.</option>
+                        {% for responsable in responsables %}
+                        <option value="{{ responsable.id }}">{{ responsable.cargo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button class="w-25 btn btn-primary btn-sm" type="submit">Filtrar</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="bg-light mx-auto w-100 p-5 rounded">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Registros de Movimientos Bancarios</h4>
+            <br>
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Es Error</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Banco</th>
+                    <th scope="col">Cuenta</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Clasificacion</th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col">Descripcion Ampliada</th>
+                    <th scope="col">Comprobante</th>
+                    <th scope="col">Importe</th>
+                    <th scope="col">Saldo</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for movimientobancario in movimientosbancarios %}
+                <tr>
+                    <td>{{movimientobancario.es_error}}</td>
+                    <td>{{movimientobancario.cuenta.usuario.empresa.descripcion}}</td>
+                    <td>{{movimientobancario.cuenta.usuario.banco.descripcion}}</td>
+                    <td>{{movimientobancario.cuenta.numero_cuenta}}</td>
+                    <td>{{movimientobancario.responsable.cargo}}</td>
+                    <td>{{movimientobancario.fecha|date:'Y-m-d'}}</td>
+                    <td>{{movimientobancario.clasificacion}}</td>
+                    <td>{{movimientobancario.concepto}}</td>
+                    <td>{{movimientobancario.descripcion_ampliada}}</td>
+                    <td>{{movimientobancario.comprobante}}</td>
+                    <td>{{movimientobancario.importe}}</td>
+                    <td>{{movimientobancario.saldo}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="bg-light mx-auto w-100 p-5 rounded">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Registros de Movimientos del Sistema Interno</h4>
+            <br>
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Es Error</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Banco</th>
+                    <th scope="col">Cuenta</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Clasificacion</th>
+                    <th scope="col">Número de asiento</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Debe</th>
+                    <th scope="col">Haber</th>
+                    <th scope="col">Saldo</th>
+                    <th scope="col">Razón social Cli/Prov</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for movimientoerp in movimientoserp %}
+                <tr>
+                    <td>{{movimientoerp.es_error}}</td>
+                    <td>{{movimientoerp.cuenta.usuario.empresa.descripcion}}</td>
+                    <td>{{movimientoerp.cuenta.usuario.banco.descripcion}}</td>
+                    <td>{{movimientoerp.cuenta.numero_cuenta}}</td>
+                    <td>{{movimientoerp.fecha|date:'Y-m-d'}}</td>
+                    <td>{{movimientoerp.responsable.cargo}}</td>
+                    <td>{{movimientoerp.clasificacion}}</td>
+                    <td>{{movimientoerp.numero_asiento}}</td>
+                    <td>{{movimientoerp.descripcion}}</td>
+                    <td>{{movimientoerp.debe}}</td>
+                    <td>{{movimientoerp.haber}}</td>
+                    <td>{{movimientoerp.saldo}}</td>
+                    <td>{{movimientoerp.razon_social_cliente_proveedor}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

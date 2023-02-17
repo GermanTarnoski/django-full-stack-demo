@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+
+    <img alt="" class="d-block mx-auto mb-4" height="72" src="{% static 'imagenes/query.png' %}" width="72">
+</div>
+
+<div class="container-lg">
+    <div class="bg-light mx-auto w-75 p-5 rounded">
+        <h1 class="mb-5">Bienvenido al sistema de consultas</h1>
+
+        <div class="row mb-3">
+            <div class="col">
+                <a href="movimientos/list/">
+                    <button type="button" class="btn btn-primary w-100">Realizar consultas de movimientos</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col">
+                <a href='bancos/'>
+                    <button type="button" class="btn btn-primary">Administrar bancos</button>
+                </a>
+            </div>
+            <div class="col">
+                <a href='usuarios/'>
+                    <button type="button" class="btn btn-primary">Administrar usuarios</button>
+                </a>
+            </div>
+            <div class="col">
+                <a href='cuentascorrientes/'>
+                    <button type="button" class="btn btn-primary">Administrar cuentas corrientes</button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</div>
+{% endblock content %}

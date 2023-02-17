@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% block content %}
+<div class="bd-example">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">Documento</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Banco</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">Detalle</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            {% for usuario in object_list %}
+            <tr>
+                <td>{{ usuario.documento }}</td>
+                <td>{{ usuario.usuario }}</td>
+                <td>{{ usuario.banco.descripcion }}</td>
+                <td>{{ usuario.empresa.descripcion }}</td>
+                <td><a href="{{ usuario.get_absolute_url }}">Detalle</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+
+<main>
+
+    <div class="py-5 text-center">
+
+        <img alt="" class="d-block mx-auto mb-4" height="72" src="{% static 'imagenes/usuarios.png' %}" width="72">
+        <h2>Ingreso de Nuevo Usuario</h2>
+    </div>
+    <div class="container-lg">
+        <div class="bg-light mx-auto w-75 p-5 rounded">
+
+            <div class="col-md-8 offset-md-4">
+                <div class="row g-5">
+                    <div class="col-md-7 col-lg-8">
+                        <h4 class="mb-3">Información</h4>
+                        <form action="/usuario/new/" method="post">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <div class="col-6 col-sm-9"><label for="documento">Documento</label>
+                                    <input class="form-control" id="documento" name="documento" type="text"
+                                           placeholder="ej: 43595254">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-6 col-sm-9"><label for="usuario">Usuario</label>
+                                    <input type="text" class="form-control" id="usuario" name="usuario"
+                                           placeholder="ej: usuario123">
+                                                  <div class="invalid-feedback">
+                                                  Se debe ingresar un nombre de usuario.
+                                                  </div>
+
+                                </div>
+                            </div>
+                            <div class="form-row align-items-center mb-5">
+                                <div class="col mb-3">
+                                    <label for="id_empresa">Empresa</label>
+
+                                    <select class="form-select d-block w-75" id="id_empresa" name="empresa" required>
+                                        <option value="">Elegir una empresa...</option>
+                                        {% for empresa in empresas %}
+                                        <option value="{{ empresa.id }}">{{ empresa.descripcion }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col mb-3">
+
+                                    <label for="id_banco">Banco</label>
+
+                                    <select class="form-select d-block w-75" id="id_banco" name="banco" required>
+                                        <option value="">Elegir un banco...</option>
+                                        {% for banco in bancos %}
+                                        <option value="{{ banco.id }}">{{ banco.descripcion }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+                            <button class="w-75 btn btn-primary btn-lg" type="submit">Enviar</button>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+{% endblock content %}

@@ -1,0 +1,82 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+
+<main>
+
+    <div class="py-5 text-center">
+
+        <img alt="" class="d-block mx-auto mb-4" height="72" src="{% static 'imagenes/usuarios.png' %}" width="72">
+        <h2>Detalles de usuario</h2>
+    </div>
+    <div class="container-lg">
+        <div class="bg-light mx-auto w-50 p-5 rounded">
+            <div class="col-md-8 offset-md-4">
+                <div class="row g-5">
+                    <div class="col-md-7 col-lg-8">
+                        <h4 class="mb-3">Información</h4>
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Documento</h6>
+                                    <small class="text-muted">{{ usuario.documento }}</small>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Usuario</h6>
+                                    <small class="text-muted">{{ usuario.usuario }}</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Empresa</h6>
+                                    <small class="text-muted">{{usuario.empresa.descripcion}}</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Banco</h6>
+                                    <small class="text-muted">{{ usuario.banco.descripcion }}</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Cuentas Corrientes asociadas</h6>
+                                    {% if cuentascorrientes %}
+                                    {% for cuentacorriente in cuentascorrientes %}
+                                    <a class="link-primary" href="/cuentascorrientes/detail/{{ cuentacorriente.id }}/"
+                                       class="text-muted">{{ cuentacorriente.numero_cuenta }}</a><br>
+                                    {% endfor %}
+                                    {%else%}
+                                    <small href="#" class="text-muted">No se asoció ninguna cuenta corriente</small><br>
+                                    {% endif %}
+
+                                </div>
+                            </li>
+
+
+                        </ul>
+                        <div class="row form-group align-items-end">
+                            <div class="col-md mb-3">
+                                <form action='update/'>
+                                    <input class="w-100 btn btn-primary btn-lg" type="submit" value="Editar"/>
+                                </form>
+                            </div>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <button class="w-100 btn btn-primary btn-lg" type="submit">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+{% endblock content %}

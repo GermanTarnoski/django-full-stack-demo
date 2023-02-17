@@ -1,0 +1,33 @@
+{% extends "main/base.html" %}
+{% block content %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre de la hoja</th>
+            <th>Clasificacion</th>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Descripcion Ampliada</th>
+            <th>Comprobante</th>
+            <th>Importe</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movimiento in object_list.all %}
+        <tr>
+            <td>{{ movimiento.cuenta.usuario.empresa.descripcion }} - {{ movimiento.cuenta.usuario.banco.descripcion }} - {{ movimiento.cuenta.numero_cuenta }}</td>
+
+            <td>{{ movimiento.responsable.cargo }} - </td>
+            <td>{{ movimiento.fecha }}</td>
+            <td>{{ movimiento.concepto }}</td>
+            <td>{{ movimiento.descripcion_ampliada }}</td>
+            <td>{{ movimiento.comprobante }}</td>
+            <td>{{ movimiento.importe }}</td>
+            <td>{{ movimiento.responsable.cargo }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
